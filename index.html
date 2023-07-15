@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>adblock-simplify-wasm example</title>
+  </head>
+  <body>
+    <script type="module">
+      import init, { AdsChecker } from "./pkg/adblock_wasm_simplify.js";
+      init().then(() => {
+        const checker = AdsChecker.new(
+          [
+            "-advertisement-icon.",
+            "-advertisement-management/",
+            "-advertisement.",
+            "-advertisement/script.",
+          ],
+          true
+        );
+
+        const result = checker.check_network_urls(
+          "http://example.com/-advertisement-icon.",
+          "http://example.com/helloworld",
+          "image"
+        );
+
+        console.log(JSON.parse(result));
+      });
+    </script>
+  </body>
+</html>
